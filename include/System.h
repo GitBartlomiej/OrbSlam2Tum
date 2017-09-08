@@ -58,7 +58,13 @@ public:
 
 public:
 
-    // Initialize the SLAM system. It launches the Local Mapping, Loop Closing and Viewer threads.
+    /**
+     * Initialize the SLAM system. It launches the Local Mapping, Loop Closing and Viewer threads.
+     * @param strVocFile - the path to Vocabulary forlder
+     * @param strSettingsFile - the path to configuration file, in my case it is TUM1
+     * @param sensor - choose which sensor you want to use, in my case it is MONOCAMERA
+     * @param bUseViewer - bool var for initializing the Viewer thread and launching it
+     */
     System(const string &strVocFile, const string &strSettingsFile, const eSensor sensor, const bool bUseViewer = true);
 
     // Proccess the given stereo frame. Images must be synchronized and rectified.
@@ -127,7 +133,14 @@ private:
     // Input sensor
     eSensor mSensor;
 
-    // ORB vocabulary used for place recognition and feature matching.
+    /**
+     * ---------------------------------------------------------------
+     * ORB vocabulary used for place recognition and feature matching.
+     * ---------------------------------------------------------------
+     * That's funny one :)
+     * In this line the dynamic object is created. ORBVocabulary is name of alias for object that is template class.
+     * DBoW2::TemplatedVocabulary<DBoW2::FORB::TDescriptor, DBoW2::FORB> ORBVocabulary
+     */
     ORBVocabulary* mpVocabulary;
 
     // KeyFrame database for place recognition (relocalization and loop detection).
@@ -161,6 +174,11 @@ private:
     std::thread* mptViewer;
 
     // Reset flag
+    /**
+     * ---------------------------------------------------------------------------------------------------
+     * More explanation words can be find in doc google drive/Uzupelnianie/zbior rzeczy ktorych nie umiem
+     * ---------------------------------------------------------------------------------------------------
+     */
     std::mutex mMutexReset;
     bool mbReset;
 

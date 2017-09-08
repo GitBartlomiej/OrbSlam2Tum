@@ -50,6 +50,19 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
         cout << "RGB-D" << endl;
 
     //Check settings file
+    /*!
+     * FileStorage is a opencv class that store information in XML/YAML format.
+     * It encapsulates all the information necessary for writing or reading data
+     * from/to a file.
+     *
+     * c_str() - this function returns pointer to an array that contains a sequence of characters in C-language.
+     *           The array contains the same sequence of characters that make up the value of string object
+     *           The pointer returned a points to the internal array currently used by the string object that store
+     *           the characters tha conform its value.
+     *
+     * cv::FileStorage::READ - this is an enum called in this class the 'Mode'. READ means
+     * 'open the file for reading'
+     */
     cv::FileStorage fsSettings(strSettingsFile.c_str(), cv::FileStorage::READ);
     if(!fsSettings.isOpened())
     {
@@ -60,6 +73,7 @@ System::System(const string &strVocFile, const string &strSettingsFile, const eS
 
     //Load ORB Vocabulary
     cout << endl << "Loading ORB Vocabulary. This could take a while..." << endl;
+
 
     mpVocabulary = new ORBVocabulary();
     bool bVocLoad = mpVocabulary->loadFromTextFile(strVocFile);
